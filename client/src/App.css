@@ -1,0 +1,239 @@
+
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background: #f4f6f9;
+  color: #333;
+  line-height: 1.6;
+   margin-top: 60px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px;
+}
+
+/* Main Container */
+.container {
+
+  width: 99vw;   /* Force full width viewport */
+  height: 100vh; 
+ 
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px 35px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  animation: fadeIn 0.6s ease-in-out;
+  position:absolute;
+}
+
+/* Heading */
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+/* Search Form */
+form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+form input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+
+form input:focus {
+  border-color: #0077ff;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,119,255,0.1);
+}
+
+form button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #0077ff;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+form button:hover {
+  background: #005fcc;
+  transform: translateY(-2px);
+}
+
+/* College List */
+ul {
+  list-style: none;
+  margin-top: 15px;
+}
+
+ul li {
+  background: #fdfdfd;
+  border: 1px solid #ececec;
+  margin-bottom: 12px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+ul li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* Distance Badge */
+.distance {
+  padding: 6px 12px;
+  background: #0077ff;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  form button {
+    width: 100%;
+  }
+}
+.select-btn {
+  background-color: #007bff;   /* Blue */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.select-btn:hover {
+  background-color: #0056b3;
+}
+
+.select-btn:active {
+  transform: scale(0.97);
+}
+
+.select-btn.selected {
+  background-color: #28a745;  /* Green when selected */
+}
+
+
+.save-btn {
+  background-color: #28a745;   /* green */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.save-btn:hover {
+  background-color: #218838;   /* darker green */
+}
+
+.save-btn:active {
+  transform: scale(0.95);
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #dc3545;
+  color: white;
+  transition: all 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Align actions horizontally */
+.college-actions {
+  display: flex;
+  gap: 10px; /* space between Select & Delete */
+  margin-top: 5px;
+}
+
+/* Select button */
+.select-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  transition: all 0.3s;
+}
+
+.select-btn:hover {
+  background-color: #0056b3;
+}
+
+.select-btn.selected {
+  background-color: #28a745;
+}
+
+/* Delete button */
+.delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #dc3545;
+  color: white;
+  transition: all 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+

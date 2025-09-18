@@ -1,0 +1,233 @@
+/* General container and base styles */
+.home-container {
+    position: relative;
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding-bottom: 50px;
+}
+
+/* Background blur effects */
+.background-blur-left {
+    position: absolute;
+    top: 5%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background-color: rgba(180, 150, 255, 0.3); /* Light purple */
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 0;
+}
+
+.background-blur-right {
+    position: absolute;
+    bottom: 10%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background-color: rgba(150, 200, 255, 0.3); /* Light blue */
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+}
+
+/* Main content wrapper */
+.main-content-wrapper {
+    display: flex;
+    flex-direction: column; /* Default to column for mobile */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    padding: 80px 32px 0;
+    flex-grow: 1;
+    z-index: 1;
+}
+
+/* Text content section */
+.text-content {
+    flex: 1;
+    text-align: center;
+    max-width: 500px;
+    margin-bottom: 3rem;
+}
+
+.small-text {
+    font-size: 0.875rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+.heading {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a202c;
+}
+
+.description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #4a5568;
+    margin-bottom: 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.try-free-button,
+.how-it-works-button {
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.try-free-button {
+    background-color: #4299e1; /* Tailwind 'blue-500' */
+    color: #ffffff;
+}
+
+.try-free-button:hover {
+    background-color: #3182ce; /* Tailwind 'blue-600' */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.how-it-works-button {
+    background-color: #ffffff;
+    color: #4a5568;
+    border: 1px solid #e2e8f0;
+}
+
+.how-it-works-button:hover {
+    background-color: #f7fafc;
+}
+
+/* Illustration section */
+.illustration-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 400px;
+    width: 100%;
+    z-index: 1;
+}
+
+.phone-container {
+    position: absolute;
+    transform: translateY(-50px) rotateZ(15deg);
+    z-index: 4;
+}
+
+.phone-mockup {
+    width: 150px;
+    height: 300px;
+    background-color: #1a202c;
+    border-radius: 30px;
+    border: 5px solid #000000;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.phone-screen {
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    background-color: #f6ad55; /* Tailwind 'orange-400' */
+    border-radius: 20px;
+    margin: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone-logo-text {
+    color: #ffffff;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+/* Company logos section */
+.company-logos-section {
+    width: 100%;
+    max-width: 1280px;
+    padding: 32px 32px 16px;
+    text-align: center;
+    margin-top: 50px;
+    border-top: 1px solid #e2e8f0;
+    z-index: 1;
+}
+
+.company-logos-text {
+    font-size: 0.875rem;
+    color: #718096;
+    margin-bottom: 1.5rem;
+}
+
+.logos-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.logo-placeholder {
+    width: 80px;
+    height: 30px;
+    background-color: #e2e8f0;
+    color: #a0aec0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    border-radius: 0.375rem;
+}
+
+/* Media Queries for Responsiveness:
+  This is the key to making the layout adapt to different screen sizes.
+*/
+
+/* For screens larger than 768px (tablets and desktops) */
+@media (min-width: 768px) {
+    .main-content-wrapper {
+        flex-direction: row; /* Switch to row layout */
+        padding: 80px 64px 0;
+    }
+
+    .text-content {
+        text-align: left; /* Align text to the left */
+        margin-bottom: 0;
+    }
+
+    .cta-buttons {
+        justify-content: flex-start; /* Align buttons to the left */
+    }
+
+    .heading {
+        font-size: 3.5rem;
+    }
+}
+
+/* For screens larger than 1024px (laptops and larger desktops) */
+@media (min-width: 1024px) {
+    .heading {
+        font-size: 4rem;
+    }
+}
