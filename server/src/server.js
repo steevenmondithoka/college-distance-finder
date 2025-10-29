@@ -20,6 +20,17 @@ app.use(express.json());
 
 await connectDB();
 
+app.get('/', (req, res) => {
+    // This is the success response, confirming the server is alive
+    res.json({ 
+        success: true, 
+        msg: 'Attendance Backend is Live! Socket.IO is attached.' 
+    });
+});
+
+// Optional: Handle favicon.ico requests (stops one of the 404 logs)
+app.get('/favicon.ico', (req, res) => res.status(204).end()); 
+
 app.use("/api/colleges", collegeRoutes);
 
 const PORT = process.env.PORT || 5000;
