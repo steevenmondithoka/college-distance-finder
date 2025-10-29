@@ -1,0 +1,82 @@
+/* Navbar.css */
+
+/* Optional: Reset default padding/margin */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Custom logo styling (if needed) */
+.demo-logo {
+  width: 120px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.3);
+  margin-right: 24px;
+  border-radius: 6px;
+}
+
+/* Optional: Style the header more clearly */
+.ant-layout-header {
+  background-color: #001529; /* Dark blue (default) */
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+/* Style the horizontal menu */
+.ant-menu-horizontal {
+  line-height: 64px;
+  border-bottom: none;
+}
+
+/* Style the selected menu item */
+.ant-menu-dark .ant-menu-item-selected {
+  background-color: #1890ff;
+}
+
+/* Sider (sidebar menu) */
+.ant-layout-sider {
+  border-right: 1px solid #f0f0f0;
+  min-height: 100vh;
+}
+
+/* Breadcrumb */
+.ant-breadcrumb {
+  font-size: 14px;
+}
+
+/* Content area */
+.ant-layout-content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  min-height: 280px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .ant-layout {
+    flex-direction: column;
+  }
+
+  .ant-layout-sider {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .ant-layout-content {
+    padding: 16px;
+  }
+
+  .ant-menu-horizontal {
+    flex-wrap: wrap;
+  }
+
+  .demo-logo {
+    margin-bottom: 12px;
+  }
+}
