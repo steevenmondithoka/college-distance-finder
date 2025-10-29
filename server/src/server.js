@@ -7,7 +7,14 @@ import collegeRoutes from "./routes/collegeRoutes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+const VERCEL_FRONTEND_URL = 'https://college-distance-finder.vercel.app'; 
+
+// 2. CONFIGURE CORS
+app.use(cors({ 
+    origin: VERCEL_FRONTEND_URL, // Only allow requests from this domain
+    credentials: true           // Important for cookies/auth headers (best practice)
+}));
+
 app.use(express.json());
 
 
