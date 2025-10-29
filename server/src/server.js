@@ -17,9 +17,6 @@ app.use(cors({
 
 app.use(express.json());
 
-
-await connectDB();
-
 app.get('/', (req, res) => {
     // This is the success response, confirming the server is alive
     res.json({ 
@@ -27,6 +24,11 @@ app.get('/', (req, res) => {
         msg: 'Attendance Backend is Live! Socket.IO is attached.' 
     });
 });
+
+
+
+await connectDB();
+
 
 // Optional: Handle favicon.ico requests (stops one of the 404 logs)
 app.get('/favicon.ico', (req, res) => res.status(204).end()); 
