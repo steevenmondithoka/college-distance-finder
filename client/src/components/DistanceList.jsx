@@ -1,28 +1,5 @@
 import React from "react";
 
-// Styles
-const tableHeaderStyle = {
-  textAlign: "left",
-  padding: "10px",
-  borderBottom: "2px solid #ddd",
-  fontWeight: "bold",
-  fontSize: "16px",
-  whiteSpace: "nowrap",
-};
-
-const rowEvenStyle = {
-  backgroundColor: "#ffffff",
-};
-
-const rowOddStyle = {
-  backgroundColor: "#fafafa",
-};
-
-const cellStyle = {
-  padding: "10px",
-  borderBottom: "1px solid #ddd",
-};
-
 export default function DistanceList({ distances, selectedCollege }) {
   if (!distances?.length) return null;
 
@@ -42,14 +19,14 @@ export default function DistanceList({ distances, selectedCollege }) {
     }
 
     const parts = d.name.split(",");
-    const name = parts[0]?.trim() || "Unknown College";
-    const address = parts.length > 1 ? parts.slice(1).join(",").trim() : "Unknown Address";
-    
-    return { name, address };
+    return {
+      name: parts[0]?.trim() || "Unknown College",
+      address: parts.slice(1).join(",").trim() || "Unknown Address",
+    };
   };
 
   return (
-    <div style={{ padding: "20px" }} className="distance-list-container">
+    <div style={{ padding: "20px" }}>
       <h2 style={{ marginBottom: "10px" }}>Nearby Colleges List</h2>
 
       {/* Flex container to stack label and table */}
@@ -67,7 +44,6 @@ export default function DistanceList({ distances, selectedCollege }) {
         {/* Selected College label */}
         {selectedCollege && (
           <div
-            className="selected-college-label"
             style={{
               fontWeight: "bold",
               fontSize: "1rem",
@@ -87,14 +63,13 @@ export default function DistanceList({ distances, selectedCollege }) {
           </div>
         )}
 
-        {/* Table container with horizontal scroll (key for mobile) */}
+        {/* Table container with horizontal scroll */}
         <div style={{ overflowX: "auto" }}>
           <table
-            className="distances-table"
             style={{
               width: "100%",
               borderCollapse: "collapse",
-              minWidth: "600px", // scroll on small screens when needed
+              minWidth: "600px", // scroll on small screens
             }}
           >
             <thead>
@@ -113,12 +88,12 @@ export default function DistanceList({ distances, selectedCollege }) {
                 return (
                   <tr key={d.id || index} style={index % 2 === 0 ? rowEvenStyle : rowOddStyle}>
                     <td style={cellStyle}>{index + 1}</td>
-                    <td style={{ ...cellStyle, whiteSpace: "nowrap" }}>
+                    <td style={cellStyle}>
                       <b>{name}</b>
                     </td>
                     <td style={cellStyle}>{address}</td>
                     <td style={cellStyle}>
-                      <span style={{ fontWeight: "bold", display: "inline-flex", alignItems: "center", whiteSpace: "nowrap" }}>
+                      <span style={{ fontWeight: "bold", display: "inline-flex", alignItems: "center" }}>
                         {Number.isFinite(d.distance_km) ? d.distance_km.toFixed(2) : "0.00"}
                         <span style={{ marginLeft: "3px", fontSize: "0.9em" }}> km</span>
                       </span>
@@ -129,29 +104,31 @@ export default function DistanceList({ distances, selectedCollege }) {
                         style={{
                           backgroundColor:
                             index === 0
-                              ? "#28a745"
+                              ? "green"
                               : index === 1
-                                ? "#ffc107"
+                                ? "yellow"
                                 : index === 2
-                                  ? "#fd7e14"
-                                  : "#6c757d",
-                          color: index === 0 ? "white" : index === 1 ? "#343a40" : "white",
-                          padding: "5px 10px",
+                                  ? "#ffcc66"
+                                  : "#e0e0e0",
+                          color: index === 0 ? "white" : "black",
+                          padding: "5px 12px",
                           borderRadius: "5px",
                           display: "inline-flex",
                           alignItems: "center",
                           justifyContent: "center",
+                          maxWidth: "140px",      // max width instead of fixed width
                           height: "28px",
                           textAlign: "center",
                           whiteSpace: "nowrap",
-                          fontSize: "14px",
-                          fontWeight: "bold",
-                          minWidth: "120px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          fontSize: "14px",       // slightly smaller font
                         }}
                         title={getNearestLabel(index)}
                       >
                         {getNearestLabel(index)}
                       </span>
+
                     </td>
                   </tr>
                 );
@@ -164,39 +141,29 @@ export default function DistanceList({ distances, selectedCollege }) {
       {/* Responsive styles */}
       <style>
         {`
-          .distance-list-container h2 {
-            font-size: 1.5rem;
-          }
-
           @media (max-width: 768px) {
-            .distance-list-container {
-              padding: 10px !important;
+            div[style*="padding: 20px"] h2 {
+              font-size: 1.25rem;
             }
-            .distance-list-container h2 {
-              font-size: 1.25rem !important;
+            div[style*="padding: 20px"] > div {
+              padding: 10px;
             }
-            .distance-list-container > div:nth-child(2) {
-              padding: 10px !important;
+            table {
+              min-width: 500px !important;
             }
-            .selected-college-label {
+            div[style*="font-weight: bold"][title] {
               font-size: 0.9rem !important;
               padding: 8px 10px !important;
-            }
-            .distances-table {
-              min-width: 500px !important;
             }
           }
 
           @media (max-width: 480px) {
-            .distance-list-container h2 {
-              font-size: 1.1rem !important;
+            table {
+              min-width: 400px !important;
             }
-            .selected-college-label {
+            div[style*="font-weight: bold"][title] {
               font-size: 0.85rem !important;
               padding: 6px 8px !important;
-            }
-            .distances-table {
-              min-width: 400px !important;
             }
           }
         `}
@@ -204,3 +171,25 @@ export default function DistanceList({ distances, selectedCollege }) {
     </div>
   );
 }
+
+// Styles
+const tableHeaderStyle = {
+  textAlign: "left",
+  padding: "10px",
+  borderBottom: "2px solid #ddd",
+  fontWeight: "bold",
+  fontSize: "16px",
+};
+
+const rowEvenStyle = {
+  backgroundColor: "#ffffff",
+};
+
+const rowOddStyle = {
+  backgroundColor: "#fafafa",
+};
+
+const cellStyle = {
+  padding: "10px",
+  borderBottom: "1px solid #ddd",
+};

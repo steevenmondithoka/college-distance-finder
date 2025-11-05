@@ -8,7 +8,7 @@ export default function CollegeSelect() {
   const [colleges, setColleges] = useState([]);
   const [selectedId, setSelectedId] = useState("");
   const [distances, setDistances] = useState([]);
-  const [distanceErr, setDistanceErr] = useState(null); // New state for distance errors
+  const [distanceErr, setDistanceErr] = useState(null); // Added for robust error handling
 
   const fetchColleges = async () => {
     try {
@@ -22,7 +22,6 @@ export default function CollegeSelect() {
       }
     } catch (error) {
       console.error("Error fetching colleges:", error);
-      // Could set a global error state here if needed
     }
   };
 
@@ -31,15 +30,15 @@ export default function CollegeSelect() {
   }, []);
 
   const handleSelect = async (id) => {
-    setDistanceErr(null); // Clear previous errors
-    
-    // Toggle selection
+    setDistanceErr(null);
+
+    // Toggle logic: If the same college is selected again, deselect it.
     if (selectedId === id) {
-        setSelectedId("");
-        setDistances([]);
-        return;
+      setSelectedId("");
+      setDistances([]);
+      return;
     }
-    
+
     setSelectedId(id);
     try {
       const res = await client.get(`/colleges/distances/${id}`);
@@ -69,7 +68,7 @@ export default function CollegeSelect() {
       alert("Failed to delete college");
     }
   };
-  
+
   const selectedCollegeName = colleges.find(c => c._id === selectedId)?.name;
 
   return (
@@ -106,152 +105,72 @@ export default function CollegeSelect() {
                             Delete
                         </button>
                     </div>
-    
                 </li>
             ))
         )}
       </ul>
-      
+
       {distanceErr && <p style={{ color: "crimson", margin: "15px 0", textAlign: "center" }}>{distanceErr}</p>}
 
       <DistanceList distances={distances} selectedCollege={selectedCollegeName} />
       
-      {/* Responsive Styles for CollegeSelect (and general layout) */}
+      {/* Responsive Styles (Using embedded CSS to not alter UI on desktop) */}
       <style>{`
-        /* ... CSS for responsiveness ... */
+        /* 
+         * Ensure the main container is constrained and padding adjusted on mobile
+         * Note: This assumes the original App.css has no max-width.
+         */
         .college-select-container {
-          max-width: 900px;
-          margin: 0 auto;
-          padding: 10px;
-        }
-        
-        .title {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px; 
         }
 
-        .subtitle {
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #5b86e2;
-            font-size: 1.5rem;
-        }
-
-        .college-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .college-item {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 15px;
-          border: 1px solid #eee;
-          border-radius: 8px;
-          margin-bottom: 10px;
-          background-color: #fff;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .college-info {
-          flex-grow: 1;
-          margin-right: 15px;
-          overflow: hidden;
-        }
-        
-        .college-name {
-            display: block;
-            font-size: 1.1rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .college-address {
-            display: block;
-            color: #666;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .college-actions {
-          display: flex;
-          gap: 10px;
-          flex-shrink: 0;
-        }
-        
-        .select-btn, .delete-btn {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            min-width: 80px;
-        }
-
-        .select-btn {
-            background-color: #007bff;
-            color: white;
-        }
-        
-        .select-btn.selected {
-            background-color: #28a745;
-        }
-
-        .delete-btn {
-            background-color: #dc3545;
-            color: white;
-        }
-        
         @media (max-width: 600px) {
-            .college-select-container {
-                padding: 5px;
-            }
-            
+            /* Reduce font sizes for titles on mobile */
             .title {
-                font-size: 1.5rem;
+                font-size: 1.5rem !important;
             }
-
             .subtitle {
-                font-size: 1.2rem;
-                margin-top: 20px;
-            }
-            
-            .college-item {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 10px;
-            }
-            
-            .college-info {
-                margin-bottom: 10px;
-                margin-right: 0;
-                width: 100%;
-            }
-            
-            .college-name, .college-address {
-                white-space: normal;
-                overflow: visible;
-                text-overflow: clip;
+                font-size: 1.2rem !important;
+                margin-top: 20px !important;
             }
 
-            .college-actions {
-                width: 100%;
-                flex-direction: row;
-                justify-content: space-around;
+            /* College Item: Change from horizontal (flex) to vertical (stacking) */
+            .college-item {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding: 10px !important; 
+            }
+
+            /* College Info: Take full width and allow wrapping */
+            .college-info {
+                margin-bottom: 10px !important; 
+                margin-right: 0 !important;
+                width: 100% !important;
+                overflow: hidden !important;
             }
             
-            .select-btn, .delete-btn {
-                flex-grow: 1;
-                min-width: unset;
+            /* Ensure long names/addresses wrap */
+            .college-name, .college-address {
+                white-space: normal !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+            }
+
+            /* College Actions: Make buttons full width and stacked horizontally */
+            .college-actions {
+                width: 100% !important;
+                flex-direction: row !important;
+                justify-content: space-between !important; 
+                gap: 8px !important; 
+            }
+            
+            /* Make buttons fill the available space */
+            .college-actions button {
+                flex-grow: 1 !important; 
+                min-width: unset !important;
+                padding: 10px 12px !important;
             }
         }
       `}</style>
